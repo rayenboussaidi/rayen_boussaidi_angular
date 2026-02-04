@@ -1,0 +1,58 @@
+<div class="list-suggestion-container">
+  <h2 class="page-title">Liste des suggestions</h2>
+  
+  <div class="search-container">
+    <input 
+      type="text" 
+      class="search-input" 
+      placeholder="Rechercher une suggestion"
+      [(ngModel)]="searchText">
+  </div>
+
+  <!-- Liste des favoris (visible pour confirmer que ça fonctionne) -->
+  <div *ngIf="favorites.length > 0" class="favorites-section">
+    <h3 class="favorites-title">Mes favoris ({{ favorites.length }})</h3>
+    <div class="favorites-list">
+      <div *ngFor="let fav of favorites" class="favorite-item">
+        <span class="favorite-title">{{ fav.title }}</span>
+        <button class="btn-remove" (click)="removeFromFavorites(fav)" title="Retirer des favoris">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="suggestions-list">
+    <div *ngFor="let suggestion of filteredSuggestions" class="suggestion-card">
+      <h3 class="suggestion-title">{{ suggestion.title }}</h3>
+      
+      <div class="suggestion-meta">
+        <span class="category">{{ suggestion.category }}</span>
+        <span class="date">{{ formatDate(suggestion.date) }}</span>
+      </div>
+      
+      <p class="suggestion-description">{{ suggestion.description }}</p>
+      
+      <div class="suggestion-status">
+        <span [class]="'status-badge ' + getStatusClass(suggestion.status)">
+          {{ getStatusLabel(suggestion.status) }}
+        </span>
+      </div>
+      
+      <div *ngIf="suggestion.status !== 'refusee'" class="suggestion-actions">
+        <button 
+          class="btn-like" 
+          (click)="likeSuggestion(suggestion)">
+          <span class="icon">👍</span>
+          Like {{ suggestion.nbLikes }}
+        </button>
+        <button 
+          class="btn-favorite" 
+          [class.in-favorites]="isInFavorites(suggestion)"
+          (click)="addToFavorites(suggestion)"
+          [disabled]="isInFavorites(suggestion)">
+          <span class="icon">❤️</span>
+          {{ isInFavorites(suggestion) ? 'Dans les favoris' : 'Ajouter aux favoris' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
