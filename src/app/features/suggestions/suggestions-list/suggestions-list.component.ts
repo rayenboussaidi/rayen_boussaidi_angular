@@ -40,6 +40,10 @@ export class SuggestionsListComponent {
     this.router.navigate(['/suggestions', id]);
   }
 
+  goToAddForm(): void {
+    this.router.navigate(['/suggestions/add']);
+  }
+
   likeSuggestion(suggestion: Suggestion): void {
     suggestion.nbLikes++;
   }

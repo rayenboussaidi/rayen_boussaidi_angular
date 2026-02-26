@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SuggestionDetailsComponent } from './suggestion-details/suggestion-details.component';
 import { SuggestionsComponent } from './suggestions.component';
 import { SuggestionsListComponent } from './suggestions-list/suggestions-list.component';
+import { SuggestionFormComponent } from './suggestion-form/suggestion-form.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
     component: SuggestionsComponent,
     children: [
       { path: '', component: SuggestionsListComponent },
+      { path: 'add', component: SuggestionFormComponent },
       { path: ':id', component: SuggestionDetailsComponent }
     ]
   }
