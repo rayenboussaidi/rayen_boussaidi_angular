@@ -1,0 +1,17 @@
+<div class="wrapper">
+  <h2>Suggestions (Lazy module)</h2>
+
+  <div class="cards">
+    <div class="card" *ngFor="let s of suggestions">
+      <div class="title">{{ s.title }}</div>
+      <div class="meta">
+        <span class="cat">{{ s.category }}</span>
+        <span class="date">{{ s.date | date: 'dd MMM y' : undefined : 'fr-FR' }}</span>
+      </div>
+      <p class="desc">{{ s.description }}</p>
+
+      <button class="btn" (click)="goToDetails(s.id)">Details</button>
+    </div>
+  </div>
+</div>
+

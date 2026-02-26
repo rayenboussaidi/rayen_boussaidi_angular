@@ -2,8 +2,8 @@
   <div class="header-content">
     <h1 class="logo">Campus Ideas</h1>
     <nav class="nav">
-      <a href="#" class="nav-link">Accueil</a>
-      <a href="#" class="nav-link active">Suggestions</a>
+      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Accueil</a>
+      <a routerLink="/suggestions" routerLinkActive="active" class="nav-link">Suggestions</a>
     </nav>
   </div>
 </header>

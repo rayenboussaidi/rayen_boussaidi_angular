@@ -1,0 +1,20 @@
+<div class="details" *ngIf="suggestion as s">
+  <h2>Détails</h2>
+
+  <div class="card">
+    <h3 class="title">{{ s.title }}</h3>
+    <div class="meta">
+      <span class="cat">{{ s.category }}</span>
+      <span class="date">{{ s.date | date: 'dd MMM y' : undefined : 'fr-FR' }}</span>
+    </div>
+    <p class="desc">{{ s.description }}</p>
+    <div class="status">Status: <strong>{{ s.status }}</strong></div>
+    <div class="likes">Likes: <strong>{{ s.nbLikes }}</strong></div>
+  </div>
+
+  <div class="actions">
+    <button class="btn" (click)="backToList()">Back to list</button>
+    <a class="link" routerLink="/suggestions">Retour à la liste</a>
+  </div>
+</div>
+
