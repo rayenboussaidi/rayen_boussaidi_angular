@@ -9,6 +9,34 @@
       [(ngModel)]="searchText">
   </div>
 
+  <!-- Filtres par statut -->
+  <div class="filter-container">
+    <button 
+      class="filter-btn" 
+      [class.active]="selectedStatus === 'all'"
+      (click)="selectedStatus = 'all'">
+      Toutes
+    </button>
+    <button 
+      class="filter-btn filter-accepted" 
+      [class.active]="selectedStatus === 'acceptee'"
+      (click)="selectedStatus = 'acceptee'">
+      Acceptées
+    </button>
+    <button 
+      class="filter-btn filter-refused" 
+      [class.active]="selectedStatus === 'refusee'"
+      (click)="selectedStatus = 'refusee'">
+      Refusées
+    </button>
+    <button 
+      class="filter-btn filter-pending" 
+      [class.active]="selectedStatus === 'en_attente'"
+      (click)="selectedStatus = 'en_attente'">
+      En attente
+    </button>
+  </div>
+
   <!-- Liste des favoris (visible pour confirmer que ça fonctionne) -->
   <div *ngIf="favorites.length > 0" class="favorites-section">
     <h3 class="favorites-title">Mes favoris ({{ favorites.length }})</h3>

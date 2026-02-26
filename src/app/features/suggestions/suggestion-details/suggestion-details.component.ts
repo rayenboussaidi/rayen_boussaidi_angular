@@ -35,5 +35,17 @@ export class SuggestionDetailsComponent implements OnInit {
   backToList(): void {
     this.router.navigate(['/suggestions']);
   }
+
+  likeSuggestion(): void {
+    if (this.suggestion) {
+      this.suggestion.nbLikes++;
+    }
+  }
+
+  toggleFavorite(): void {
+    if (this.suggestion) {
+      this.suggestion.isFavorite = !this.suggestion.isFavorite;
+    }
+  }
 }
 

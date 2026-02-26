@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { SuggestionsRoutingModule } from './suggestions-routing.module';
 import { SuggestionsComponent } from './suggestions.component';
@@ -14,6 +15,7 @@ import { SuggestionDetailsComponent } from './suggestion-details/suggestion-deta
   ],
   imports: [
     CommonModule,
+    FormsModule,
     SuggestionsRoutingModule
   ]
 })

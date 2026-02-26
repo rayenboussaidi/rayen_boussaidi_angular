@@ -1,8 +1,55 @@
 <div class="wrapper">
   <h2>Suggestions (Lazy module)</h2>
 
+  <!-- Search Bar -->
+  <div class="search-container">
+    <input 
+      type="text" 
+      class="search-input" 
+      placeholder="Rechercher une suggestion"
+      [(ngModel)]="searchText">
+  </div>
+
+  <!-- Status Filters -->
+  <div class="filter-container">
+    <button 
+      class="filter-btn" 
+      [class.active]="selectedStatus === 'all'"
+      (click)="selectedStatus = 'all'">
+      Toutes
+    </button>
+    <button 
+      class="filter-btn filter-accepted" 
+      [class.active]="selectedStatus === 'acceptee'"
+      (click)="selectedStatus = 'acceptee'">
+      Acceptées
+    </button>
+    <button 
+      class="filter-btn filter-refused" 
+      [class.active]="selectedStatus === 'refusee'"
+      (click)="selectedStatus = 'refusee'">
+      Refusées
+    </button>
+    <button 
+      class="filter-btn filter-pending" 
+      [class.active]="selectedStatus === 'en_attente'"
+      (click)="selectedStatus = 'en_attente'">
+      En attente
+    </button>
+  </div>
+
+  <!-- Favorites Section -->
+  <div *ngIf="favorites.length > 0" class="favorites-section">
+    <h3>Mes favoris ({{ favorites.length }})</h3>
+    <div class="favorites-list">
+      <span *ngFor="let fav of favorites" class="favorite-badge">
+        {{ fav.title }}
+      </span>
+    </div>
+  </div>
+
   <div class="cards">
-    <div class="card" *ngFor="let s of suggestions">
+    <div class="card" *ngFor="let s of filteredSuggestions">
       <div class="title">{{ s.title }}</div>
       <div class="meta">
         <span class="cat">{{ s.category }}</span>
@@ -10,7 +57,30 @@
       </div>
       <p class="desc">{{ s.description }}</p>
 
-      <button class="btn" (click)="goToDetails(s.id)">Details</button>
+      <!-- Status Badge -->
+      <div class="status-container">
+        <span [class]="'status-badge ' + getStatusClass(s.status)">
+          {{ getStatusLabel(s.status) }}
+        </span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="actions">
+        <button class="btn btn-details" (click)="goToDetails(s.id)">Details</button>
+        
+        <div *ngIf="s.status !== 'refusee'" class="interactive-buttons">
+          <button class="btn btn-like" (click)="likeSuggestion(s)">
+            👍 Like ({{ s.nbLikes }})
+          </button>
+          <button 
+            class="btn btn-favorite" 
+            [class.favorited]="isInFavorites(s)"
+            [disabled]="isInFavorites(s)"
+            (click)="addToFavorites(s)">
+            {{ isInFavorites(s) ? '⭐ Ajouté' : '☆ Ajouter aux favoris' }}
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

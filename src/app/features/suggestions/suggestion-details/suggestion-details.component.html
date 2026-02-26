@@ -10,6 +10,18 @@
     <p class="desc">{{ s.description }}</p>
     <div class="status">Status: <strong>{{ s.status }}</strong></div>
     <div class="likes">Likes: <strong>{{ s.nbLikes }}</strong></div>
+    
+    <div class="interactive-actions">
+      <button class="btn-like" (click)="likeSuggestion()">
+        👍 Like
+      </button>
+      <button 
+        class="btn-favorite" 
+        [class.favorited]="s.isFavorite"
+        (click)="toggleFavorite()">
+        {{ s.isFavorite ? '⭐ Remove from Favorites' : '☆ Add to Favorites' }}
+      </button>
+    </div>
   </div>
 
   <div class="actions">

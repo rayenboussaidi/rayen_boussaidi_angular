@@ -8,6 +8,7 @@ import { Suggestion } from '../../models/suggestion';
 })
 export class ListSuggestionComponent {
   searchText: string = '';
+  selectedStatus: string = 'all';
   favorites: Suggestion[] = [];
 
   suggestions: Suggestion[] = [
@@ -50,14 +51,23 @@ export class ListSuggestionComponent {
   ];
 
   get filteredSuggestions(): Suggestion[] {
-    if (!this.searchText) {
-      return this.suggestions;
+    let filtered = this.suggestions;
+
+    // Filter by status
+    if (this.selectedStatus !== 'all') {
+      filtered = filtered.filter(suggestion => suggestion.status === this.selectedStatus);
     }
-    const searchLower = this.searchText.toLowerCase();
-    return this.suggestions.filter(suggestion =>
-      suggestion.title.toLowerCase().includes(searchLower) ||
-      suggestion.category.toLowerCase().includes(searchLower)
-    );
+
+    // Filter by search text
+    if (this.searchText) {
+      const searchLower = this.searchText.toLowerCase();
+      filtered = filtered.filter(suggestion =>
+        suggestion.title.toLowerCase().includes(searchLower) ||
+        suggestion.category.toLowerCase().includes(searchLower)
+      );
+    }
+
+    return filtered;
   }
 
   likeSuggestion(suggestion: Suggestion): void {

@@ -6,4 +6,5 @@ export interface Suggestion {
   date: Date;
   status: 'acceptee' | 'refusee' | 'en_attente';
   nbLikes: number;
+  isFavorite?: boolean;
 }

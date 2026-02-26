@@ -33,6 +33,54 @@
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
+.filter-container {
+  max-width: 800px;
+  margin: 0 auto 30px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  background: white;
+  color: #666;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-btn.active {
+  color: white;
+  border-color: transparent;
+}
+
+.filter-btn.active:not(.filter-accepted):not(.filter-refused):not(.filter-pending) {
+  background: #007bff;
+}
+
+.filter-btn.filter-accepted.active {
+  background: #28a745;
+}
+
+.filter-btn.filter-refused.active {
+  background: #dc3545;
+}
+
+.filter-btn.filter-pending.active {
+  background: #ffc107;
+  color: #333;
+}
+
 .favorites-section {
   max-width: 800px;
   margin: 0 auto 30px;
