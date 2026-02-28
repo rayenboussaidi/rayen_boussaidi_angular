@@ -68,6 +68,14 @@ h2 {
   filter: brightness(1.1);
 }
 
+.btn-update {
+  background: #007bff;
+}
+
+.btn-delete {
+  background: #dc3545;
+}
+
 .link {
   color: #007bff;
   text-decoration: none;

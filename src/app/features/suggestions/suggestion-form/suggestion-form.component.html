@@ -1,5 +1,5 @@
 <div class="form-container">
-  <h2>Ajouter une nouvelle suggestion</h2>
+  <h2>{{ isEdit ? 'Modifier la suggestion' : 'Ajouter une nouvelle suggestion' }}</h2>
 
   <form [formGroup]="suggestionForm" (ngSubmit)="onSubmit()" class="suggestion-form">
     
@@ -94,12 +94,12 @@
         type="submit" 
         class="btn btn-submit"
         [disabled]="suggestionForm.invalid">
-        Soumettre
+        {{ isEdit ? 'Enregistrer' : 'Soumettre' }}
       </button>
       <button 
         type="button" 
         class="btn btn-cancel"
-        (click)="router.navigate(['/suggestions'])">
+        (click)="cancel()">
         Annuler
       </button>
     </div>

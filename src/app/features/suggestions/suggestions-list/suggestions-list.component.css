@@ -153,6 +153,43 @@ h2 {
   overflow: visible;
 }
 
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.card-header .title {
+  flex: 1;
+  margin: 0;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 24px;
+  max-width: 900px;
+  margin: 0 auto 20px;
+}
+
+.error {
+  color: #dc3545;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+}
+
+.btn-delete {
+  background: #dc3545 !important;
+  color: white !important;
+  flex-shrink: 0;
+}
+
+.btn-delete:hover {
+  background: #c82333 !important;
+}
+
 .title {
   font-weight: 800;
   color: #2c3e50;
