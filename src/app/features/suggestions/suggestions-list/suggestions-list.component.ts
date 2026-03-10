@@ -109,4 +109,8 @@ export class SuggestionsListComponent implements OnInit {
       default: return '';
     }
   }
+
+  trackById(_index: number, item: Suggestion): number {
+    return item.id;
+  }
 }

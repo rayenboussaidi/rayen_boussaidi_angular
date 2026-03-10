@@ -19,81 +19,64 @@
 
   <!-- Status Filters -->
   <div class="filter-container">
-    <button 
-      class="filter-btn" 
-      [class.active]="selectedStatus === 'all'"
-      (click)="selectedStatus = 'all'">
-      Toutes
-    </button>
-    <button 
-      class="filter-btn filter-accepted" 
-      [class.active]="selectedStatus === 'acceptee'"
-      (click)="selectedStatus = 'acceptee'">
-      Acceptées
-    </button>
-    <button 
-      class="filter-btn filter-refused" 
-      [class.active]="selectedStatus === 'refusee'"
-      (click)="selectedStatus = 'refusee'">
-      Refusées
-    </button>
-    <button 
-      class="filter-btn filter-pending" 
-      [class.active]="selectedStatus === 'en_attente'"
-      (click)="selectedStatus = 'en_attente'">
-      En attente
-    </button>
+    <button class="filter-btn" [class.active]="selectedStatus === 'all'" (click)="selectedStatus = 'all'">Toutes</button>
+    <button class="filter-btn filter-accepted" [class.active]="selectedStatus === 'acceptee'" (click)="selectedStatus = 'acceptee'">Acceptées</button>
+    <button class="filter-btn filter-refused" [class.active]="selectedStatus === 'refusee'" (click)="selectedStatus = 'refusee'">Refusées</button>
+    <button class="filter-btn filter-pending" [class.active]="selectedStatus === 'en_attente'" (click)="selectedStatus = 'en_attente'">En attente</button>
   </div>
 
   <!-- Favorites Section -->
   <div *ngIf="favorites.length > 0" class="favorites-section">
     <h3>Mes favoris ({{ favorites.length }})</h3>
     <div class="favorites-list">
-      <span *ngFor="let fav of favorites" class="favorite-badge">
-        {{ fav.title }}
-      </span>
+      <span *ngFor="let fav of favorites" class="favorite-badge">{{ fav.title }}</span>
     </div>
   </div>
 
+  <!-- Loading / Error -->
   <div *ngIf="loading" class="loading">Chargement...</div>
-  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="error" class="error-box">{{ error }}</div>
 
-  <div class="cards">
-    <div class="card" *ngFor="let s of filteredSuggestions">
-      <div class="card-header">
-        <div class="title">{{ s.title }}</div>
-        <button class="btn btn-delete" (click)="deleteSuggestion(s, $event)" title="Supprimer">Supprimer</button>
-      </div>
-      <div class="meta">
-        <span class="cat">{{ s.category }}</span>
-        <span class="date">{{ s.date | date: 'dd MMM y' : undefined : 'fr-FR' }}</span>
-      </div>
-      <p class="desc">{{ s.description }}</p>
+  <!-- Suggestion Cards -->
+  <div class="cards" *ngIf="!loading">
+    <div class="card" *ngFor="let s of filteredSuggestions; trackBy: trackById">
 
-      <!-- Status Badge -->
-      <div class="status-container">
-        <span [class]="'status-badge ' + getStatusClass(s.status)">
-          {{ getStatusLabel(s.status) }}
-        </span>
+      <div class="card-top">
+        <h3 class="card-title">{{ s.title || 'Sans titre' }}</h3>
+        <button class="btn-delete" (click)="deleteSuggestion(s, $event)" title="Supprimer">🗑️</button>
       </div>
 
-      <!-- Action Buttons -->
-      <div class="actions">
+      <div class="card-meta">
+        <span class="card-category">{{ s.category || 'Non classé' }}</span>
+        <span class="card-date">{{ s.date | date:'dd MMM y' }}</span>
+      </div>
+
+      <p class="card-desc">{{ s.description || 'Aucune description.' }}</p>
+
+      <span class="card-status" [ngClass]="getStatusClass(s.status)">
+        {{ getStatusLabel(s.status) }}
+      </span>
+
+      <div class="card-actions">
         <button class="btn btn-details" (click)="goToDetails(s.id)">Details</button>
-        
-        <div *ngIf="s.status !== 'refusee'" class="interactive-buttons">
+
+        <ng-container *ngIf="s.status !== 'refusee'">
           <button class="btn btn-like" (click)="likeSuggestion(s)">
-            👍 Like ({{ s.nbLikes }})
+            👍 Like {{ s.nbLikes }}
           </button>
-          <button 
-            class="btn btn-favorite" 
-            [class.favorited]="isInFavorites(s)"
+          <button
+            class="btn btn-fav"
+            [class.added]="isInFavorites(s)"
             [disabled]="isInFavorites(s)"
             (click)="addToFavorites(s)">
             {{ isInFavorites(s) ? '⭐ Ajouté' : '☆ Ajouter aux favoris' }}
           </button>
-        </div>
+        </ng-container>
       </div>
+    </div>
+
+    <div *ngIf="filteredSuggestions.length === 0 && !loading" class="no-results">
+      Aucune suggestion trouvée.
     </div>
   </div>
 </div>
